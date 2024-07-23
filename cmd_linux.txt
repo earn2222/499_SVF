@@ -11,3 +11,7 @@
  # git command
 git commit -m "sorry - revert last 3 commits because I was not careful"
 git push origin master
+
+#upload model
+D:\key>scp -i aws_47.129.50.123.pem D:\499_SVF\python\best_new_100.pt ubuntu@47.129.50.123:/home/ubuntu/499_SVF/python
+best_new_100.pt
