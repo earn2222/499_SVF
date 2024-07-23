@@ -1,0 +1,40 @@
+FROM osgeo/gdal:ubuntu-small-3.6.3
+# Install python3 
+RUN apt update && apt-get install -y python3
+RUN apt update && apt-get install python3-pip -y
+RUN apt update && apt-get install -y gdal-bin python3-gdal
+RUN apt-get update && apt-get install -y libgl1-mesa-glx
+RUN apt-get update && apt-get install -y libglib2.0-0
+RUN apt-get update && apt-get install -y libsm6 libxext6 libxrender-dev
+RUN apt-get update && apt-get install -y libgl1-mesa-dev
+RUN apt-get update && apt-get install -y libgtk2.0-dev libcanberra-gtk-module
+# RUN apt-get update && apt-get install libpq-dev 
+# RUN apt update && apt-get install -y apt-get clean
+RUN pip3 install flask
+RUN pip3 install pandas
+RUN pip3 install requests
+RUN pip3 install scipy
+RUN pip3 install opencv-python-headless
+RUN pip3 install torch
+RUN pip3 install ultralytics
+RUN pip3 install matplotlib
+RUN pip3 install pillow
+RUN pip3 install werkzeug
+RUN pip3 install pybase64
+RUN pip3 install jsons
+RUN pip3 install talisman
+RUN pip3 install numpy
+RUN pip3 install opencv-python
+# RUN pip install psycopg2
+RUN pip install psycopg2-binary
+RUN pip install flask-talisman
+
+
+
+
+WORKDIR /mnt
+
+COPY app.py /mnt/app.py
+
+ENTRYPOINT ["python3"]
+CMD ["app.py"]

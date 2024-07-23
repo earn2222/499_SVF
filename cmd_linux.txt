@@ -1,0 +1,13 @@
+ #list file
+ ls -l
+
+เข้า
+ cd <folder>
+
+ ออก
+ cd ../ 
+
+
+ # git command
+git commit -m "sorry - revert last 3 commits because I was not careful"
+git push origin master
