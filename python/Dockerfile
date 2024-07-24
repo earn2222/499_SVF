@@ -1,6 +1,7 @@
 FROM osgeo/gdal:ubuntu-small-3.6.3
 # Install python3 
 RUN apt-get update && apt-get install -y python3
+RUN apt-get update && apt-get install python3-pip -y
 RUN apt-get update && apt-get install -y gdal-bin python3-gdal
 RUN apt-get update && apt-get install -y libgl1-mesa-glx
 RUN apt-get update && apt-get install -y libglib2.0-0
@@ -9,7 +10,6 @@ RUN apt-get update && apt-get install -y libgl1-mesa-dev
 RUN apt-get update && apt-get install -y libgtk2.0-dev libcanberra-gtk-module
 # RUN apt-get update && apt-get install libpq-dev 
 # RUN apt update && apt-get install -y apt-get clean
-RUN apt-get update && apt-get install python3-pip -y
 RUN pip install flask
 RUN pip install pandas
 RUN pip install requests
