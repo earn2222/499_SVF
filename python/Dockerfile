@@ -1,13 +1,9 @@
-# Use the GDAL image as a base
-FROM osgeo/gdal:ubuntu-small-3.6.3
+FROM ubuntu:22.04
 
-# Set the working directory
 WORKDIR /mnt
 
-# Set the environment variable for non-interactive installation
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install required system packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     software-properties-common && \
@@ -29,7 +25,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Python packages
 RUN pip install --no-cache-dir \
     flask \
     pandas \
@@ -49,8 +44,6 @@ RUN pip install --no-cache-dir \
     psycopg2-binary \
     flask-talisman
 
-# Copy the application file into the container
 COPY app.py /mnt/app.py
 
-# Set the entry point to run the Flask application
 ENTRYPOINT ["python3", "app.py"]
