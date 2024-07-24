@@ -1,14 +1,10 @@
 FROM osgeo/gdal:ubuntu-small-3.6.3
 
-# Update package list and upgrade existing packages
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Update package list
+RUN apt-get update
 
-# Install necessary dependencies
-RUN apt-get update && \
-    apt-get install -y \
+# Install Python and GDAL dependencies
+RUN apt-get install -y \
     python3 \
     python3-pip \
     gdal-bin \
