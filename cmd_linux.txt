@@ -8,19 +8,20 @@ ssh -i aws_47.129.50.123.pem ubuntu@47.129.50.123
 sudo docker container ls -a
 
 noina
-3200 node
-5434 postgit
+3200 web
+5434 database
 
 cmu_tsg16
-3100 
-5432
+3100 web
+5432 database
 
 line-beacon
-3000
-5433
+3000 web
+5433 database
 
 earn 
-5000
+5100 web
+5435 database
 
 
 
