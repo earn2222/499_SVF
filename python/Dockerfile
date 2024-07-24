@@ -1,17 +1,13 @@
 FROM osgeo/gdal:ubuntu-small-3.6.3
 
-# Update package list
-RUN apt-get update
-
-# Install essential packages in steps to identify the problematic one
-RUN apt-get install -y python3 python3-pip
-RUN apt-get install -y gdal-bin python3-gdal
-RUN apt-get install -y libgl1-mesa-glx libglib2.0-0
-RUN apt-get install -y libsm6 libxext6 libxrender-dev
-RUN apt-get install -y libgl1-mesa-dev libgtk2.0-dev libcanberra-gtk-module
-
-# Clean up package lists
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    apt-get install -y gdal-bin python3-gdal && \
+    apt-get install -y libgl1-mesa-glx libglib2.0-0 libsm6 libxext6 libxrender-dev && \
+    apt-get install -y libgl1-mesa-dev libgtk2.0-dev libcanberra-gtk-module && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install Python packages
 RUN pip install --no-cache-dir \
