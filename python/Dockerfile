@@ -1,16 +1,25 @@
 FROM osgeo/gdal:ubuntu-small-3.6.3
 
-# Install system dependencies
+# อัปเดตและติดตั้ง dependencies ที่จำเป็น
 RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    apt-get install -y gdal-bin python3-gdal && \
-    apt-get install -y libgl1-mesa-glx libglib2.0-0 libsm6 libxext6 libxrender-dev && \
-    apt-get install -y libgl1-mesa-dev libgtk2.0-dev libcanberra-gtk-module && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    gdal-bin \
+    python3-gdal \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgl1-mesa-dev \
+    libgtk2.0-dev \
+    libcanberra-gtk-module && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Python packages
-RUN pip install --no-cache-dir \
+# ติดตั้ง Python packages
+RUN pip3 install --no-cache-dir \
     flask \
     pandas \
     requests \
@@ -28,6 +37,7 @@ RUN pip install --no-cache-dir \
     opencv-python \
     psycopg2-binary \
     flask-talisman
+
 
 WORKDIR /mnt
 
