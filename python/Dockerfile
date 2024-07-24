@@ -1,20 +1,27 @@
+# Use the GDAL image as a base
 FROM osgeo/gdal:ubuntu-small-3.6.3
 
-# Install required dependencies in one layer to reduce image size and improve build speed
+# Set the working directory
+WORKDIR /mnt
+
+# Install required system packages
 RUN apt-get update && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository universe && \
-    apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
+    software-properties-common \
     python3 \
-    gdal-bin python3-gdal \
+    python3-pip \
+    gdal-bin \
+    python3-gdal \
     libgl1-mesa-glx \
     libglib2.0-0 \
-    libsm6 libxext6 libxrender-dev \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
     libgl1-mesa-dev \
-    libgtk2.0-dev libcanberra-gtk-module \
-    python3-pip && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    libgtk2.0-dev \
+    libcanberra-gtk-module && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install Python packages
 RUN pip install --no-cache-dir \
@@ -36,12 +43,8 @@ RUN pip install --no-cache-dir \
     psycopg2-binary \
     flask-talisman
 
-# Set the working directory
-WORKDIR /mnt
-
 # Copy the application file into the container
 COPY app.py /mnt/app.py
 
 # Set the entry point to run the Flask application
-ENTRYPOINT ["python3"]
-CMD ["app.py"]
+ENTRYPOINT ["python3", "app.py"]
