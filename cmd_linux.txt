@@ -1,5 +1,28 @@
+# remote 
+ssh -i aws_47.129.50.123.pem ubuntu@47.129.50.123
+ 
  #list file
  ls -l
+
+#list docker container 
+sudo docker container ls -a
+
+noina
+3200 node
+5434 postgit
+
+cmu_tsg16
+3100 
+5432
+
+line-beacon
+3000
+5433
+
+earn 
+5000
+
+
 
 เข้า
  cd <folder>
