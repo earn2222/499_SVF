@@ -4,10 +4,16 @@ FROM osgeo/gdal:ubuntu-small-3.6.3
 # Set the working directory
 WORKDIR /mnt
 
+# Set the environment variable for non-interactive installation
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install required system packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    software-properties-common \
+    software-properties-common && \
+    add-apt-repository universe && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
     python3 \
     python3-pip \
     gdal-bin \
