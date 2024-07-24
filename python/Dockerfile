@@ -1,8 +1,8 @@
 FROM osgeo/gdal:ubuntu-small-3.6.3
 
 # Install necessary system packages
-RUN apt-get update \
-    && apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     python3 \
     gdal-bin \
     python3-gdal \
@@ -18,7 +18,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python packages
-RUN pip install \
+RUN pip install --no-cache-dir \
     flask \
     pandas \
     requests \
