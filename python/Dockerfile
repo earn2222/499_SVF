@@ -1,8 +1,13 @@
 FROM osgeo/gdal:ubuntu-small-3.6.3
 
-# Install necessary dependencies
+# Update package list and upgrade existing packages
 RUN apt-get update && \
     apt-get upgrade -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install necessary dependencies
+RUN apt-get update && \
     apt-get install -y \
     python3 \
     python3-pip \
