@@ -1,7 +1,7 @@
 FROM osgeo/gdal:ubuntu-small-3.6.3
 
 # Install necessary dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     python3 \
     python3-pip \
     gdal-bin \
@@ -13,7 +13,9 @@ RUN apt-get update && apt-get install -y \
     libxrender-dev \
     libgl1-mesa-dev \
     libgtk2.0-dev \
-    libcanberra-gtk-module
+    libcanberra-gtk-module && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Upgrade pip and install Python packages
 RUN python3 -m pip install --upgrade pip
