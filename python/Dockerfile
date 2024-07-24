@@ -1,40 +1,48 @@
 FROM osgeo/gdal:ubuntu-small-3.6.3
-# Install python3 
-RUN apt-get update && apt-get install -y python3
-RUN apt-get update && apt-get install python3-pip -y
-RUN apt-get update && apt-get install -y gdal-bin python3-gdal
-RUN apt-get update && apt-get install -y libgl1-mesa-glx
-RUN apt-get update && apt-get install -y libglib2.0-0
-RUN apt-get update && apt-get install -y libsm6 libxext6 libxrender-dev
-RUN apt-get update && apt-get install -y libgl1-mesa-dev
-RUN apt-get update && apt-get install -y libgtk2.0-dev libcanberra-gtk-module
-# RUN apt-get update && apt-get install libpq-dev 
-# RUN apt update && apt-get install -y apt-get clean
-RUN pip install flask
-RUN pip install pandas
-RUN pip install requests
-RUN pip install scipy
-RUN pip install opencv-python-headless
-RUN pip install torch
-RUN pip install ultralytics
-RUN pip install matplotlib
-RUN pip install pillow
-RUN pip install werkzeug
-RUN pip install pybase64
-RUN pip install jsons
-RUN pip install talisman
-RUN pip install numpy
-RUN pip install opencv-python
-# RUN pip install psycopg2
-RUN pip install psycopg2-binary
-RUN pip install flask-talisman
 
+# Update and install required packages
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y \
+    python3 \
+    python3-pip \
+    gdal-bin \
+    python3-gdal \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgl1-mesa-dev \
+    libgtk2.0-dev \
+    libcanberra-gtk-module
 
+# Install Python packages
+RUN pip install \
+    flask \
+    pandas \
+    requests \
+    scipy \
+    opencv-python-headless \
+    torch \
+    ultralytics \
+    matplotlib \
+    pillow \
+    werkzeug \
+    pybase64 \
+    jsons \
+    talisman \
+    numpy \
+    opencv-python \
+    psycopg2-binary \
+    flask-talisman
 
-
+# Set working directory
 WORKDIR /mnt
 
+# Copy the application file
 COPY app.py /mnt/app.py
 
+# Define the entrypoint
 ENTRYPOINT ["python3"]
 CMD ["app.py"]
