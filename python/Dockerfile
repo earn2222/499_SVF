@@ -1,8 +1,8 @@
 FROM osgeo/gdal:ubuntu-small-3.6.3
 # Install python3 
-RUN apt update && apt-get install -y python3
-RUN apt update && apt-get install python-pip -y
-RUN apt update && apt-get install -y gdal-bin python3-gdal
+RUN apt-get update && apt-get install -y python3
+RUN apt-get update && apt-get install python-pip -y
+RUN apt-get update && apt-get install -y gdal-bin python3-gdal
 RUN apt-get update && apt-get install -y libgl1-mesa-glx
 RUN apt-get update && apt-get install -y libglib2.0-0
 RUN apt-get update && apt-get install -y libsm6 libxext6 libxrender-dev
