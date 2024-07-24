@@ -1,22 +1,10 @@
-FROM osgeo/gdal:ubuntu-small-3.6.3
+FROM ubuntu:22.04
 
-# อัปเดตและติดตั้ง dependencies ที่จำเป็น
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    python3 \
-    python3-pip \
-    gdal-bin \
-    python3-gdal \
-    libgl1-mesa-glx \
-    libglib2.0-0 \
-    libsm6 \
-    libxext6 \
-    libxrender-dev \
-    libgl1-mesa-dev \
-    libgtk2.0-dev \
-    libcanberra-gtk-module && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:ubuntugis/ubuntugis-unstable && \
+    apt-get update && \
+    apt-get install -y gdal-bin libgdal-dev
 
 # ติดตั้ง Python packages
 RUN pip3 install --no-cache-dir \
