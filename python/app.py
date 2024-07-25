@@ -328,6 +328,30 @@ def map3():
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404    
+
+
+#aboutnew11
+
+@app.route("/aboutnew11")
+def aboutnew11():
+    return render_template('indaxaboutnew1.html')
+
+
+@app.route('/imgaboutnew1/aboutnew1')
+def about1():
+    img_path = 'D:/499_SVF/python/homenew/about1.jpg'
+    if os.path.exists(img_path):
+        return send_file(img_path, mimetype='image/jpeg')
+    else:
+        return "Image not found", 404
+    
+@app.route('/imgaboutnew1/aboutnew2')
+def about2():
+    img_path = 'D:/499_SVF/python/homenew/about2.jpg'
+    if os.path.exists(img_path):
+        return send_file(img_path, mimetype='image/jpeg')
+    else:
+        return "Image not found", 404
     
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0', port=5000)
