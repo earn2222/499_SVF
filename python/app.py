@@ -289,7 +289,15 @@ def aboutnew2():
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
-    
+
+#โลโก้
+@app.route('/imggolo/logo')
+def logo():
+    img_path = 'D:/flaskweb/homenew/logo.jpg'
+    if os.path.exists(img_path):
+        return send_file(img_path, mimetype='image/jpeg')
+    else:
+        return "Image not found", 404
 
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0', port=5000)
