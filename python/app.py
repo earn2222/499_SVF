@@ -298,6 +298,36 @@ def logo():
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
+#manual
 
+@app.route("/manual")
+def manual():
+    return render_template('indexmanual.html')
+
+
+@app.route('/img1map/map1')
+def map1():
+    img_path = 'D:/499_SVF/python/homenew/1map.jpg'
+    if os.path.exists(img_path):
+        return send_file(img_path, mimetype='image/jpeg')
+    else:
+        return "Image not found", 404
+    
+@app.route('/img1map/map2')
+def map2():
+    img_path = 'D:/499_SVF/python/homenew/2map.jpg'
+    if os.path.exists(img_path):
+        return send_file(img_path, mimetype='image/jpeg')
+    else:
+        return "Image not found", 404
+
+@app.route('/img1map/map3')
+def map3():
+    img_path = 'D:/499_SVF/python/homenew/3map.jpg'
+    if os.path.exists(img_path):
+        return send_file(img_path, mimetype='image/jpeg')
+    else:
+        return "Image not found", 404    
+    
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0', port=5000)
