@@ -293,7 +293,7 @@ def aboutnew2():
 #โลโก้
 @app.route('/imggolo/logo')
 def logo():
-    img_path = 'D:/flaskweb/homenew/logo.jpg'
+    img_path = 'D:/499_SVF/python/homenew/logo.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
