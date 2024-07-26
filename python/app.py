@@ -256,7 +256,7 @@ def getbyweek(week):
 
 @app.route('/imgweek/<int:week>')
 def serve_image(week):
-    img_folder = 'D:/499_SVF/python/homenew/imgweek'
+    img_folder = './homenew/imgweek'
     filename = f'week{week}.png'  # Adjust the filename format as needed
     filepath = os.path.join(img_folder, filename)
     if os.path.exists(filepath):
