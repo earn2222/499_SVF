@@ -2,37 +2,34 @@ version: '3.8'
 
 services:
   postgis:
-    image: postgis/postgis:latest
-    container_name: postgis
-    ports:
-      - "5433:5432"
+    image: postgis/postgis
+    restart: always
     environment:
-      # POSTGRES_DB: gsv2svfnewnew
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      # - POSTGRES_DB=geodb
+    ports:
+      - 5435:5432
     volumes:
       - ./postgis:/docker-entrypoint-initdb.d
 
   python:
-    image: giswqs/segment-geospatial:latest
-    container_name: python
-    working_dir: /app
-    depends_on:
-      - postgis
-    ports:
-      - "5100:5000"
+    build:
+      context: ./python/
+      dockerfile: Dockerfile
     volumes:
-      - ./python:/app
+      - ./python:/mnt
+    ports:
+      - 5100:5000
     command: /bin/bash -c "pip install -r requirements.txt && python app.py"
-
-  nodejs:
-    image: node:latest
-    container_name: nodejs
-    working_dir: /app
-    depends_on:
-      - postgis
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./nodejs:/app
-    command: /bin/bash -c "npm install && npm i -g nodemon && nodemon app.js"
+  # nodejs:
+  #   image: node:latest
+  #   container_name: nodejs
+  #   working_dir: /app
+  #   depends_on:
+  #     - postgis
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./nodejs:/app
+  #   command: /bin/bash -c "npm install && npm i -g nodemon && nodemon app.js"
