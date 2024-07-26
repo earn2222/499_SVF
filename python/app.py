@@ -1,3 +1,4 @@
+import os
 from gsv_main3 import GSVCapture
 import pandas as pd
 import psycopg2
@@ -7,6 +8,7 @@ from flask import Flask, request, redirect, url_for, send_from_directory, render
 from werkzeug.utils import secure_filename
 from flask import send_file
 from flask_talisman import Talisman
+from flask import Flask, request, jsonify
 
 app = Flask(__name__, template_folder='web')
 
@@ -67,105 +69,119 @@ gsv = GSVCapture()
 conn_string = "dbname='gsv2svfnewnew' user='postgres' host='postgis' port='5432'  password='1234'"
 conn_string1 = "dbname='gsv2svfnewnew' user='postgres' host='postgis' port='5432'  password='1234'"
 
+
 @app.route("/api")
 def api():
     """Simple API endpoint."""
     return jsonify({"hi": "hello"})
 
 
-#หน้าปก
+# หน้าปก
 @app.route("/")
 def homenew():
     """Render the new homepage."""
     return render_template('indexhomenew.html')
+
 
 @app.route("/homenew")
 def homeneww():
     """Render the new homepage."""
     return render_template('indexhomenew.html')
 
-    
+
 @app.route('/img/homenew1')
 def homenew1():
     """Serve a specific image."""
-    img_path = 'D:/499_SVF/python/homenew/1.jpg'
+    img_path = './homenew/1.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
+
 
 @app.route('/img/homenew2')
 def homenew2():
     """Serve a specific image."""
-    img_path = 'D:/499_SVF/python/homenew/2.jpg'
+    img_path = './homenew/2.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
 
+
 @app.route('/img/homenew3')
 def homenew3():
     """Serve a specific image."""
-    img_path = 'D:/499_SVF/python/homenew/3.jpg'
+    img_path = './homenew/3.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
-    
-#หน้า sumdeep
+
+# หน้า sumdeep
+
+
 @app.route("/sumdeep")
 def sumdeep():
     """Render the new homepage."""
     return render_template('indexsumdeep.html')
 
+
 @app.route('/img/sumdeep1')
 def sumdeep1():
     """Serve a specific image."""
-    img_path = 'D:/499_SVF/python/homenew/1sumdeep.jpg'
+    img_path = './homenew/1sumdeep.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
+
 
 @app.route('/img/sumdeep2')
 def sumdeep2():
     """Serve a specific image."""
-    img_path = 'D:/499_SVF/python/homenew/2sumdeep.jpg'
+    img_path = './homenew/2sumdeep.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
+
 
 @app.route('/img/sumdeep3')
 def sumdeep3():
     """Serve a specific image."""
-    img_path = 'D:/499_SVF/python/homenew/3sumdeep.jpg'
+    img_path = './homenew/3sumdeep.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
-    
 
-#หน้า sumco
+
+# หน้า sumco
 @app.route("/sumco")
 def sumco():
     """Render the new homepage."""
     return render_template('indexsumco.html')
 
-#หน้า sumroute
+# หน้า sumroute
+
+
 @app.route("/sumroute")
 def sumroute():
     """Render the new homepage."""
     return render_template('indexsumroute.html')
 
-#หน้า deep SVF TVF BVF # api area
+# หน้า deep SVF TVF BVF # api area
+
+
 @app.route("/getByLatLong/")
 def getByLatLong():
-    lat = request.args.get('lat') 
-    lng = request.args.get('lng') 
+    lat = request.args.get('lat')
+    lng = request.args.get('lng')
     res = gsv.getByLatLong(lat, lng)
     # print(res)
     return jsonify({"lat": lat, "lng": lng, "status": res})
+
 
 @app.route('/getbylatlng/<lat>/<lng>/')
 def getbylatlng(lat, lng):
@@ -173,56 +189,71 @@ def getbylatlng(lat, lng):
     return jsonify(res)
 
 # SVF ขอบเขต
+
+
 @app.route("/mapsvf")
 def mapsvf():
     return render_template('indexmapsvf.html')
+
 
 @app.route('/static1/<path:filename>')
 def static1(filename):
     return send_from_directory('static1', filename)
 
 # TVF ขอบเขต
+
+
 @app.route("/maptvf")
 def maptvf():
     return render_template('indexmaptvf.html')
+
 
 @app.route('/static1/<path:filename>')
 def static2(filename):
     return send_from_directory('static1', filename)
 
 # BVF ขอบเขต
+
+
 @app.route("/mapbvf")
 def mapbvf():
     return render_template('indexmapbvf.html')
+
 
 @app.route('/static1/<path:filename>')
 def static3(filename):
     return send_from_directory('static1', filename)
 
-#หน้า co SVF TVF BVF
+# หน้า co SVF TVF BVF
+
 
 @app.route("/svfco")
 def svfco():
     return render_template('indexsvfco.html')
 
+
 @app.route("/tvfco")
 def tvfco():
     return render_template('indextvfco.html')
+
 
 @app.route("/bvfco")
 def bvfco():
     return render_template('indexbvfco.html')
 
-#ข้อมูลเทศบาลนครเชียงใหม่ 
+# ข้อมูลเทศบาลนครเชียงใหม่
+
+
 @app.route('/getstreeview/<week>/')
 def getbyweek(week):
     query = f"SELECT * FROM gsv2svfnewnew{week};"
     with psycopg2.connect(conn_string) as conn:
-        with  conn.cursor(cursor_factory=RealDictCursor) as cur:
-                cur.execute(query)
-                rows = cur.fetchall()
-                return rows 
-        
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(query)
+            rows = cur.fetchall()
+            return rows
+
+
 @app.route('/imgweek/<int:week>')
 def serve_image(week):
     img_folder = 'D:/499_SVF/python/homenew/imgweek'
@@ -234,71 +265,83 @@ def serve_image(week):
         return f"Image for week {week} not found", 404
 
 
-#หน้า route SVF TVF BVF
+# หน้า route SVF TVF BVF
 
 @app.route("/svfro")
 def svfro():
     return render_template('indexsvfro.html')
 
+
 @app.route("/tvfro")
 def tvfro():
     return render_template('indextvfro.html')
+
 
 @app.route("/bvfro")
 def bvfro():
     return render_template('indexbvfro.html')
 
-#ข้อมูลถนน4เส้น   
+# ข้อมูลถนน4เส้น
+
+
 @app.route('/getroute/<route>/')
 def getbyroute(route):
     query = f"SELECT * FROM route{route};"
-    with psycopg2.connect(conn_string1) as conn:  
+    with psycopg2.connect(conn_string1) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute(query)
             rows = cur.fetchall()
             return rows
-        
+
+
 @app.route('/imgroute/<int:route>')
 def serve_image1(route):
-    img_folder = 'D:/499_SVF/python/homenew/imgroute'
+    img_folder = './homenew/imgroute'
     filename = f'route{route}.png'
     filepath = os.path.join(img_folder, filename)
-    
+
     if os.path.exists(filepath):
         return send_file(filepath, mimetype='image/png')
     else:
         return f"Image for route {route} not found", 404
 
-#หน้าโปลไฟล์
+# หน้าโปลไฟล์
+
+
 @app.route("/aboutnew")
 def aboutnew():
     return render_template('indexaboutnew.html')
 
+
 @app.route('/imgaboutnew/aboutnew1')
 def aboutnew1():
-    img_path = 'D:/499_SVF/python/homenew/earn.jpg'
+    img_path = './homenew/earn.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
+
 
 @app.route('/imgaboutnew/aboutnew2')
 def aboutnew2():
-    img_path = 'D:/499_SVF/python/homenew/earn1.jpg'
+    img_path = './homenew/earn1.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
 
-#โลโก้
+# โลโก้
+
+
 @app.route('/imggolo/logo')
 def logo():
-    img_path = 'D:/499_SVF/python/homenew/logo.jpg'
+    img_path = './homenew/logo.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
-#manual
+# manual
+
 
 @app.route("/manual")
 def manual():
@@ -307,30 +350,32 @@ def manual():
 
 @app.route('/img1map/map1')
 def map1():
-    img_path = 'D:/499_SVF/python/homenew/1map.jpg'
+    img_path = './homenew/1map.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
-    
+
+
 @app.route('/img1map/map2')
 def map2():
-    img_path = 'D:/499_SVF/python/homenew/2map.jpg'
+    img_path = './homenew/2map.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
+
 
 @app.route('/img1map/map3')
 def map3():
-    img_path = 'D:/499_SVF/python/homenew/3map.jpg'
+    img_path = './homenew/3map.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
-        return "Image not found", 404    
+        return "Image not found", 404
 
 
-#aboutnew11
+# aboutnew11
 
 @app.route("/aboutnew11")
 def aboutnew11():
@@ -339,19 +384,21 @@ def aboutnew11():
 
 @app.route('/imgaboutnew1/aboutnew1')
 def about1():
-    img_path = 'D:/499_SVF/python/homenew/about1.jpg'
+    img_path = './homenew/about1.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
-    
+
+
 @app.route('/imgaboutnew1/aboutnew2')
 def about2():
-    img_path = 'D:/499_SVF/python/homenew/about2.jpg'
+    img_path = './homenew/about2.jpg'
     if os.path.exists(img_path):
         return send_file(img_path, mimetype='image/jpeg')
     else:
         return "Image not found", 404
-    
+
+
 if __name__ == '__main__':
-	app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
