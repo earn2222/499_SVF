@@ -1,11 +1,13 @@
 FROM osgeo/gdal:ubuntu-small-3.6.3
 
-# Install system dependencies
+# Add universe repository
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y software-properties-common && \
+    add-apt-repository universe
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
     python3 \
-    gdal-bin \
-    python3-gdal \
     libgl1-mesa-glx \
     libglib2.0-0 \
     libsm6 \
@@ -14,8 +16,8 @@ RUN apt-get update && \
     libgl1-mesa-dev \
     libgtk2.0-dev \
     libcanberra-gtk-module \
-    python3-pip && \
-    rm -rf /var/lib/apt/lists/*
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements file and install Python dependencies
 COPY requirements.txt /mnt/requirements.txt
@@ -26,5 +28,3 @@ WORKDIR /mnt
 
 # Copy application code
 COPY app.py /mnt/app.py
-
-
