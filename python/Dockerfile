@@ -1,8 +1,8 @@
 FROM osgeo/gdal:ubuntu-small-3.6.3
 
-# ติดตั้งแพ็กเกจที่ระบบต้องการ
+# Install system dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y \
     python3 \
     gdal-bin \
     python3-gdal \
@@ -15,18 +15,16 @@ RUN apt-get update && \
     libgtk2.0-dev \
     libcanberra-gtk-module \
     python3-pip && \
-    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# คัดลอกไฟล์ requirements และติดตั้งแพ็กเกจ Python
+# Copy requirements file and install Python dependencies
 COPY requirements.txt /mnt/requirements.txt
 RUN pip install --no-cache-dir -r /mnt/requirements.txt
 
-# กำหนดไดเรกทอรีการทำงาน
+# Set working directory
 WORKDIR /mnt
 
-# คัดลอกโค้ดของแอปพลิเคชัน
+# Copy application code
 COPY app.py /mnt/app.py
 
-# กำหนดคำสั่งเริ่มต้นเมื่อเริ่มคอนเทนเนอร์
-CMD ["python3", "/mnt/app.py"]
+
